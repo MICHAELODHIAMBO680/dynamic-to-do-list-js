@@ -18,20 +18,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Function to add a task
     function addTask(taskText, save = true) {
-        if (!taskText.trim()) {
+        const trimmedTaskText = taskText.trim(); // Trimmed outside of taskInput
+        if (!trimmedTaskText) {
             alert("Please enter a task!");
             return;
         }
 
         // Create task item
         const taskItem = document.createElement("li");
-        taskItem.textContent = taskText;
+        taskItem.textContent = trimmedTaskText;
 
         // Create remove button
         const removeButton = document.createElement("button");
         removeButton.textContent = "Remove";
         removeButton.classList.add("remove-btn");
-        removeButton.addEventListener("click", () => removeTask(taskItem, taskText));
+        removeButton.addEventListener("click", () => removeTask(taskItem, trimmedTaskText));
 
         // Append elements
         taskItem.appendChild(removeButton);
@@ -39,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Save task to Local Storage if required
         if (save) {
-            saveTaskToLocalStorage(taskText);
+            saveTaskToLocalStorage(trimmedTaskText);
         }
 
         // Clear input field
@@ -72,3 +73,4 @@ document.addEventListener("DOMContentLoaded", () => {
         tasks.forEach((taskText) => addTask(taskText, false)); // Pass 'false' to prevent saving again
     }
 });
+
